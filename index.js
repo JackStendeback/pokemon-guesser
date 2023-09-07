@@ -113,7 +113,31 @@ document.addEventListener("DOMContentLoaded", () => {
       'https://media.tenor.com/pBM7dzGyfokAAAAj/snorlax-pixel.gif',
       'https://media.tenor.com/gjxJnAFTKNAAAAAj/hoean-staters-pokemon.gif',
       'https://media.tenor.com/HFotit6PSgUAAAAj/timotainmental-playin-piano.gif',
-      'https://media.tenor.com/IgUGgEFr_o4AAAAj/supermegaespecifictag.gif'
+      'https://media.tenor.com/IgUGgEFr_o4AAAAj/supermegaespecifictag.gif',
+      'https://media.tenor.com/tnR5ShiNRyIAAAAj/multiple-colors-cute-pony.gif',
+      'https://media.tenor.com/gxvJFh-wA88AAAAj/cuphead.gif',
+      'https://media.tenor.com/y6ko93COrOQAAAAj/reshiram-pokemon-reshiram.gif',
+      'https://media.tenor.com/Q1GffEXQrgAAAAAj/cyndaquil-pokemon.gif',
+      'https://media.tenor.com/WkesrjxP9rAAAAAj/pokemon-pikachu.gif',
+      'https://media.tenor.com/gZXUDhpuZR4AAAAj/keckleon-being-sick.gif',
+      'https://media.tenor.com/TnD8y7cA2uIAAAAj/pokemon-cynthia.gif',
+      'https://media.tenor.com/FH4xWxbhf2kAAAAj/pokemon.gif',
+      'https://media.tenor.com/X_xh7_GIN9YAAAAj/rojo-pokemon.gif',
+      'https://media.tenor.com/4zAQPJNQKxAAAAAj/barry-pokemon.gif',
+      'https://media.tenor.com/vdV8xin-290AAAAj/haxorus-pokemon.gif',
+      'https://media.tenor.com/Xuxf8MjsCvkAAAAj/magikarp-pokemon.gif',
+      'https://media.tenor.com/WIwUWwq6JpUAAAAj/pokemon-dragonite.gif',
+      'https://media.tenor.com/WdulATnpfMQAAAAj/vapoeron-danceing.gif',
+      'https://media.tenor.com/o7WxPa0RpkUAAAAj/pikachu.gif',
+      'https://media.tenor.com/pZlKyUDs0RgAAAAj/pokemon-nintendo.gif',
+      'https://media.tenor.com/iGSsICUR-2oAAAAj/mewtwo-sprite.gif',
+      'https://media.tenor.com/ptl9U5YvK_wAAAAj/shiny-charizard-fire.gif',
+      'https://media.tenor.com/gPI9EkLBgkIAAAAj/pokemon-piplup.gif',
+      'https://media.tenor.com/VjjL8PS5Z3MAAAAj/charmander-ian-boschero.gif',
+      'https://media.tenor.com/EAAxkwW71WcAAAAj/pokemon-pokemon-black-and-white.gif',
+      'https://media.tenor.com/qycQatpHyVkAAAAj/vaporeon-pokemon.gif',
+      'https://media.tenor.com/jwHkGGFNoH8AAAAj/shiny-charmander-pokemon.gif',
+      'https://media.tenor.com/CeiYlOyw55oAAAAj/pokemon-pixel-art.gif'
     ];
     const randomGifIndex = Math.floor(Math.random() * gifs.length);
     pokemonImage.src = gifs[randomGifIndex];
