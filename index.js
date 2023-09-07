@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreElement = document.getElementById("score");
   const scoreList = document.getElementById("scoreList");
   const themeToggle = document.getElementById("theme-toggle");
+  const result = document.getElementById("result"); // Added this line for result display
 
   // Function to set the initial theme based on user preference or system settings
   function setInitialTheme() {
