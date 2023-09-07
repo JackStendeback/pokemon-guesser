@@ -1,0 +1,92 @@
+/* Reset some default browser styles */
+body, h1, ul, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Add a background color and set font properties */
+  body {
+    background-color: #f3f4f6;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Center text and images on the page */
+  h1, img, form, p, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Add some space at the top and bottom of the page */
+  body {
+    padding: 20px;
+  }
+  
+  /* Style the Pokémon image */
+  #pokemonImage {
+    max-width: 100%;
+    height: auto;
+    border: 4px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 0 auto; /* Center the image horizontally */
+    display: block; /* Make it a block element to center properly */
+}
+  
+  /* Style the form */
+  form {
+    margin: 20px auto;
+  }
+  
+  input[type="number"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style the result and score */
+  #result, #score {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  /* Style the leaderboard */
+  #leaderboard {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  #scoreList {
+    list-style-type: none;
+  }
+  
+  #scoreList li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+  }
+  
+  #scoreList li:last-child {
+    border-bottom: none;
+  }
