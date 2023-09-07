@@ -1,4 +1,3 @@
-// Function to toggle between light and dark modes
 function toggleTheme() {
   const body = document.body;
   body.classList.toggle("dark-mode");
@@ -89,14 +88,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fetchRandomPokemon = async () => {
     const randomID = Math.floor(Math.random() * 898) + 1;
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomID}/`);
-    const data = await response.json();
-    pokemonImage.src = data.sprites.front_default;
-
-    const speciesResponse = await fetch(data.species.url);
-    const speciesData = await speciesResponse.json();
-    const generationString = speciesData.generation.name.split("-")[1].toUpperCase();
-    currentGeneration = romanToInt(generationString);
+  
+    // Show a loading indicator while fetching
+    pokemonImage.src = 'https://media.tenor.com/29p75Sk-P8EAAAAM/pikachu-pokemon.gif';
+  
+    // Delay for 3 seconds
+    setTimeout(async () => {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomID}/`);
+      const data = await response.json();
+      pokemonImage.src = data.sprites.front_default;
+  
+      const speciesResponse = await fetch(data.species.url);
+      const speciesData = await speciesResponse.json();
+      const generationString = speciesData.generation.name.split("-")[1].toUpperCase();
+      currentGeneration = romanToInt(generationString);
+    }, 2000); // 3000 milliseconds (3 seconds) delay
   };
 
   fetchRandomPokemon();
