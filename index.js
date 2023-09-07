@@ -1,3 +1,4 @@
+// Function to toggle between light and dark modes
 function toggleTheme() {
   const body = document.body;
   body.classList.toggle("dark-mode");
@@ -88,21 +89,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fetchRandomPokemon = async () => {
     const randomID = Math.floor(Math.random() * 898) + 1;
-  
-    // Show a loading indicator while fetching
-    pokemonImage.src = 'https://media.tenor.com/29p75Sk-P8EAAAAM/pikachu-pokemon.gif';
-  
+
+    // * Choose a random GIF from the array
+    const gifs = [
+      'https://media.tenor.com/29p75Sk-P8EAAAAM/pikachu-pokemon.gif',
+      'https://media.tenor.com/-UySwvEyDMMAAAAi/bulbasaur-pokemon.gif',
+      'https://media.tenor.com/3sJ4Qpyio-QAAAAM/wooper-pokemon.gif',
+      'https://media.tenor.com/NHk1vFM59h0AAAAM/jolton-pokemon.gif',
+      'https://media.tenor.com/ezOoD-uw_0wAAAAM/pokemon-cute.gif',
+      'https://media.tenor.com/52I7tEtSoH8AAAAM/purugly-pokemon.gif',
+      'https://media.tenor.com/cQtoIIrpSxQAAAAj/pokemon-mudkip.gif',
+      'https://media.tenor.com/Pwn9ZYb7C2QAAAAj/gengar-pokemon.gif',
+      'https://media.tenor.com/DrdU6bRAfusAAAAj/bulbasaur-pokemon.gif',
+      'https://media.tenor.com/ukCijpKsjhEAAAAj/pokemon-venusaur.gif',
+      'https://media.tenor.com/2KcqhP4elWkAAAAj/drifblim-drifloon.gif',
+      'https://media.tenor.com/YvAZ_CtrtlMAAAAj/espeon.gif',
+      'https://media.tenor.com/R-IQmr-QVTYAAAAj/darkrai-pok%C3%A9mon-darkrai.gif',
+      'https://media.tenor.com/Uc1_BQNb7O8AAAAj/sylveon-pixell.gif',
+      'https://media.tenor.com/IBWoFq2aazQAAAAj/amazing-wow.gif',
+      'https://media.tenor.com/FfHjNfODLkgAAAAj/buizel-pokemon.gif',
+      'https://media.tenor.com/40q2xXN6gfMAAAAj/meowth-pokemon.gif',
+      'https://media.tenor.com/F_Pp03QwWaIAAAAj/water.gif',
+      'https://media.tenor.com/pBM7dzGyfokAAAAj/snorlax-pixel.gif',
+      'https://media.tenor.com/gjxJnAFTKNAAAAAj/hoean-staters-pokemon.gif',
+      'https://media.tenor.com/HFotit6PSgUAAAAj/timotainmental-playin-piano.gif',
+      'https://media.tenor.com/IgUGgEFr_o4AAAAj/supermegaespecifictag.gif'
+    ];
+    const randomGifIndex = Math.floor(Math.random() * gifs.length);
+    pokemonImage.src = gifs[randomGifIndex];
+
     // Delay for 3 seconds
     setTimeout(async () => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomID}/`);
       const data = await response.json();
       pokemonImage.src = data.sprites.front_default;
-  
+
       const speciesResponse = await fetch(data.species.url);
       const speciesData = await speciesResponse.json();
       const generationString = speciesData.generation.name.split("-")[1].toUpperCase();
       currentGeneration = romanToInt(generationString);
-    }, 2000); // 3000 milliseconds (3 seconds) delay
+    }, 2500); // * 2 Second Delay Between Guesses
   };
 
   fetchRandomPokemon();
