@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* Reset some default browser styles */
-body, h1, ul, p {
+body, h1, ul, p{
   margin: 0;
   padding: 0;
+  font-family: 'Roboto';
 }
 
 /* Common styles for both light and dark modes */
@@ -102,6 +105,27 @@ button:hover {
   margin: 10px 0;
 }
 
+/* Style the result element */
+#result {
+  font-size: 24px; /* Adjust font size as needed */
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 10px 0;
+  color: white; /* Text color */
+  font-weight: bold; /* Make the text bold */
+}
+
+.correct {
+  background-color: green; /* Change this to the desired green color */
+  color: white; /* Text color for "Correct" */
+  padding: 5px 10px; /* Adjust padding as needed */
+  border-radius: 5px; /* Adjust border radius as needed */
+}
+/* Style the result element for wrong answers */
+#result.wrong {
+  background-color: #FF5722; /* Red background for wrong answers */
+}
+
 /* Style the leaderboard */
 #leaderboard {
   background: #fff;
@@ -124,4 +148,21 @@ button:hover {
 
 #scoreList li:last-child {
   border-bottom: none;
+}
+
+/* Style the score with a background color that works for both light and dark modes */
+#score {
+  font-size: 18px;
+  margin: 10px 0;
+  background-color: #4CAF50; /* Green color that contrasts well with both light and dark text */
+  color: white; /* White text color for good contrast on the green background */
+  padding: 10px 20px; /* Add padding to the score element */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition on color change */
+}
+
+/* Hover effect */
+#score:hover {
+  background-color: #45A049; /* Slightly darker green on hover */
 }

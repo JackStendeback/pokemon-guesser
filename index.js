@@ -111,9 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (userGuess === currentGeneration) {
         result.textContent = "Correct! It's from generation " + currentGeneration;
+        result.classList.remove("wrong");
+        result.classList.add("correct");
         score += 10;
       } else {
         result.textContent = "Wrong! The correct generation is " + currentGeneration;
+        result.classList.remove("correct");
+        result.classList.add("wrong");
         score -= 5;
         incorrectTries++;
 
