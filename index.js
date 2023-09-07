@@ -8,6 +8,9 @@ function toggleTheme() {
   } else {
     localStorage.setItem("theme", "light");
   }
+
+  // Update the button text to reflect the current mode
+  themeToggle.textContent = body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -126,3 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetchRandomPokemon();
 });
+
+// Update the button text to reflect the current mode outside of the DOMContentLoaded event
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle.textContent = document.body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
