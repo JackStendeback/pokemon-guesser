@@ -1,3 +1,15 @@
+function toggleTheme() {
+  const body = document.body;
+  body.classList.toggle("dark-mode");
+
+  // Store the user's preference in local storage
+  if (body.classList.contains("dark-mode")) {
+      localStorage.setItem("theme", "dark");
+  } else {
+      localStorage.setItem("theme", "light");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const pokemonImage = document.getElementById("pokemonImage");
   const guessForm = document.getElementById("guessForm");
@@ -21,17 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setInitialTheme(); // Call the function to set the initial theme
 
   // Function to toggle between light and dark modes
-  function toggleTheme() {
-      const body = document.body;
-      body.classList.toggle("dark-mode");
-
-      // Store the user's preference in local storage
-      if (body.classList.contains("dark-mode")) {
-          localStorage.setItem("theme", "dark");
-      } else {
-          localStorage.setItem("theme", "light");
-      }
-  }
 
   // Add click event listener to the theme toggle button
   themeToggle.addEventListener("click", toggleTheme);
