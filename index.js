@@ -1,9 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const pokemonImage = document.getElementById("pokemonImage");
-    const guessForm = document.getElementById("guessForm");
-    const result = document.getElementById("result");
-    const scoreElement = document.getElementById("score");
-    const scoreList = document.getElementById("scoreList");
+  const pokemonImage = document.getElementById("pokemonImage");
+  const guessForm = document.getElementById("guessForm");
+  const result = document.getElementById("result");
+  const scoreElement = document.getElementById("score");
+  const scoreList = document.getElementById("scoreList");
+  const themeToggle = document.getElementById("theme-toggle"); // Move this inside DOMContentLoaded
+
+  // ... Rest of your existing code
+
+  // Function to set the initial theme based on user preference or system settings
+  function setInitialTheme() {
+      const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (localStorage.getItem("theme") === "dark" || (prefersDarkMode && !localStorage.getItem("theme"))) {
+          document.body.classList.add("dark-mode");
+      } else {
+          document.body.classList.remove("dark-mode");
+      }
+  }
+
+  setInitialTheme(); // Call the function to set the initial theme
+
+  // Function to toggle between light and dark modes
+  function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+
+      // Store the user's preference in local storage
+      if (body.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+      } else {
+          localStorage.setItem("theme", "light");
+      }
+  }
+
+  // Add click event listener to the theme toggle button
+  themeToggle.addEventListener("click", toggleTheme);
   
     let currentGeneration = null;
     let score = 0;
