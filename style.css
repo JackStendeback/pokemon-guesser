@@ -31,6 +31,30 @@ body.light-mode {
   body {
     padding: 20px;
   }
+
+  /* Style the generation buttons */
+#generationButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.generation-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.generation-button:hover {
+  background-color: #0056b3;
+}
   
   /* Style the Pokémon image */
   #pokemonImage {

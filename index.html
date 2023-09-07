@@ -11,11 +11,17 @@
     <button id="theme-toggle">Toggle Dark Mode</button>
     <h1>Pokémon Generation Guesser</h1>
     <img id="pokemonImage" src="" alt="Pokémon image">
-    <form id="guessForm">
-        <label for="generation">Guess the generation: </label>
-        <input type="number" id="generation" min="1" max="8">
-        <button type="submit">Submit</button>
-    </form>
+    
+    <div id="generationButtons">
+        <button class="generation-button" data-generation="1">Gen 1</button>
+        <button class="generation-button" data-generation="2">Gen 2</button>
+        <button class="generation-button" data-generation="3">Gen 3</button>
+        <button class="generation-button" data-generation="4">Gen 4</button>
+        <button class="generation-button" data-generation="5">Gen 5</button>
+        <button class="generation-button" data-generation="6">Gen 6</button>
+        <button class="generation-button" data-generation="7">Gen 7</button>
+        <button class="generation-button" data-generation="8">Gen 8</button>
+    </div>
     <p id="result"></p>
     <p id="score">Score: 0</p>
 
