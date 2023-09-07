@@ -20,6 +20,11 @@ body.dark-mode {
     background-color: #1f1f1f;
     color: #fff;
 }
+
+/* Override text color for the leaderboard section */
+body.dark-mode #leaderboard {
+    color: #333; /* Set the text color to a dark color */
+}
   
   /* Center text and images on the page */
   h1, img, form, p, h2 {
