@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 /* Reset some default browser styles */
-body, h1, ul, p{
+body, h1, ul, p {
   margin: 0;
   padding: 0;
   font-family: 'Roboto';
@@ -67,7 +67,7 @@ body {
   height: auto;
   border: 4px solid #ccc;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto; /* Center the image horizontally */
   display: block; /* Make it a block element to center properly */
 }
@@ -121,33 +121,61 @@ button:hover {
   padding: 5px 10px; /* Adjust padding as needed */
   border-radius: 5px; /* Adjust border radius as needed */
 }
+
 /* Style the result element for wrong answers */
 #result.wrong {
   background-color: #FF5722; /* Red background for wrong answers */
 }
 
-/* Style the leaderboard */
-#leaderboard {
-  background: #fff;
+/* Style the top scores section */
+#top-scores {
+  background-color: #ADD8E6 !important; /* Light pastel blue background color */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   margin: 20px auto;
 }
 
+#top-scores h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
 #scoreList {
   list-style-type: none;
+  padding: 0;
+  margin: 0; /* Remove default list margin */
 }
 
 #scoreList li {
   padding: 10px;
   border-bottom: 1px solid #eee;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between; /* Align name and score to the left and right */
+  align-items: center; /* Vertically center the content */
 }
 
-#scoreList li:last-child {
-  border-bottom: none;
+/* Style alternating rows */
+#scoreList li:nth-child(even) {
+  background-color: #f0f0f0; /* A slightly lighter gray */
+  color: #333; /* Darker text color for better readability */
+}
+
+/* Add some spacing between name and score */
+.score-name {
+  flex: 2; /* Distribute available space equally between name and score */
+  margin-right: 10px; /* Add spacing between name and score */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score-score {
+  color: #007bff; /* Blue color for the score */
+  flex: 1; /* Distribute available space equally between name and score */
+  text-align: right;
 }
 
 /* Style the score with a background color that works for both light and dark modes */

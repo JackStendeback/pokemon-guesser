@@ -1,15 +1,14 @@
+// Function to toggle between light and dark modes
 function toggleTheme() {
   const body = document.body;
   body.classList.toggle("dark-mode");
 
-  // Store the user's preference in local storage
   if (body.classList.contains("dark-mode")) {
     localStorage.setItem("theme", "dark");
   } else {
     localStorage.setItem("theme", "light");
   }
 
-  // Update the button text to reflect the current mode
   themeToggle.textContent = body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
 }
 
@@ -18,9 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreElement = document.getElementById("score");
   const scoreList = document.getElementById("scoreList");
   const themeToggle = document.getElementById("theme-toggle");
-  const result = document.getElementById("result"); // Added this line for result display
+  const result = document.getElementById("result");
 
-  // Function to set the initial theme based on user preference or system settings
   function setInitialTheme() {
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (localStorage.getItem("theme") === "dark" || (prefersDarkMode && !localStorage.getItem("theme"))) {
@@ -30,11 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  setInitialTheme(); // Call the function to set the initial theme
+  setInitialTheme();
 
-  // Function to toggle between light and dark modes
-
-  // Add click event listener to the theme toggle button
   themeToggle.addEventListener("click", toggleTheme);
 
   let currentGeneration = null;
@@ -49,7 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateLeaderboard = () => {
     allScores.sort((a, b) => b.score - a.score);
     scoreList.innerHTML = '';
-    for (const scoreWithUser of allScores) {
+
+    // Display only the top 5 highest scores
+    const top5Scores = allScores.slice(0, 5);
+
+    for (const scoreWithUser of top5Scores) {
       const newScoreItem = document.createElement("li");
       newScoreItem.textContent = `${scoreWithUser.name}: ${scoreWithUser.score}`;
       scoreList.appendChild(newScoreItem);
@@ -102,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetchRandomPokemon();
 
-  // Add click event listener to the generation buttons
   const generationButtons = document.querySelectorAll(".generation-button");
 
   generationButtons.forEach((button) => {
@@ -134,6 +132,5 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchRandomPokemon();
 });
 
-// Update the button text to reflect the current mode outside of the DOMContentLoaded event
 const themeToggle = document.getElementById("theme-toggle");
 themeToggle.textContent = document.body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
