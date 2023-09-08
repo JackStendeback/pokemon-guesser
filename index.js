@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreIncreasePerCorrectAnswer = 5; // Initial score increase
   let incorrectTries = 0;
   let allScores = [];
-  
 
   const updateScore = () => {
     consecutiveCorrectAnswers++;
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to reset the consecutive correct answers and score on incorrect answer
   const resetConsecutiveCorrectAnswers = () => {
     consecutiveCorrectAnswers = 0;
-};
+  };
 
   const updateLeaderboard = () => {
     allScores.sort((a, b) => b.score - a.score);
@@ -63,21 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
       newScoreItem.textContent = `${scoreWithUser.name}: ${scoreWithUser.score}`;
       scoreList.appendChild(newScoreItem);
     }
+
+    // Store the leaderboard in local storage
+    localStorage.setItem("leaderboard", JSON.stringify(allScores));
   };
 
   const resetGame = () => {
     const username = prompt("You've reached 5 incorrect guesses! Enter your name to submit your score:");
-  
+
     if (username && username.trim() !== "") {
       allScores.push({ name: username.trim(), score: score });
       updateLeaderboard();
     } else {
       alert("No username entered. Your score will not be recorded.");
     }
-  
+
     // Reset the score to 0
     score = -5;
-
     consecutiveCorrectAnswers = 0; // Reset consecutive correct answers
     incorrectTries = 0;
     updateScore(); // Update the displayed score
@@ -88,9 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function romanToInt(roman) {
     const romanNumerals = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
     let total = 0;
+
     for (let i = 0; i < roman.length; i++) {
       const current = romanNumerals[roman[i]];
       const next = romanNumerals[roman[i + 1]];
+
       if (next && next > current) {
         total += next - current;
         i++;
@@ -98,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         total += current;
       }
     }
+
     return total;
   }
 
@@ -243,6 +247,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const speciesData = await speciesResponse.json();
       const generationString = speciesData.generation.name.split("-")[1].toUpperCase();
       currentGeneration = romanToInt(generationString);
+
+      // Load the leaderboard from local storage if it exists
+      const leaderboardData = localStorage.getItem("leaderboard");
+      if (leaderboardData) {
+        allScores = JSON.parse(leaderboardData);
+        updateLeaderboard();
+      }
     }, 2500); // * 2 Second Delay Between Guesses
   };
 
@@ -253,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generationButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const userGuess = parseInt(button.getAttribute("data-generation"), 10);
-  
+
       if (userGuess === currentGeneration) {
         result.textContent = "Correct! It's from generation " + currentGeneration;
         result.classList.remove("wrong");
@@ -265,15 +276,15 @@ document.addEventListener("DOMContentLoaded", () => {
         result.classList.add("wrong");
         resetConsecutiveCorrectAnswers();
         incorrectTries++;
-  
+
         if (incorrectTries >= 5) {
           resetGame();
         }
       }
-  
+
       fetchRandomPokemon();
+    });
   });
-});
 
   fetchRandomPokemon();
 });
