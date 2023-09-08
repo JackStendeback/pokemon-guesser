@@ -34,12 +34,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentGeneration = null;
   let score = 0;
+  let consecutiveCorrectAnswers = 0;
+  const scoreIncreasePerCorrectAnswer = 5; // Initial score increase
   let incorrectTries = 0;
   let allScores = [];
+  
 
   const updateScore = () => {
+    consecutiveCorrectAnswers++;
+    score += scoreIncreasePerCorrectAnswer * consecutiveCorrectAnswers;
     scoreElement.textContent = "Score: " + score;
   };
+
+  // Function to reset the consecutive correct answers and score on incorrect answer
+  const resetConsecutiveCorrectAnswers = () => {
+    consecutiveCorrectAnswers = 0;
+};
 
   const updateLeaderboard = () => {
     allScores.sort((a, b) => b.score - a.score);
@@ -57,17 +67,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const resetGame = () => {
     const username = prompt("You've reached 5 incorrect guesses! Enter your name to submit your score:");
-
+  
     if (username && username.trim() !== "") {
       allScores.push({ name: username.trim(), score: score });
       updateLeaderboard();
     } else {
       alert("No username entered. Your score will not be recorded.");
     }
+  
+    // Reset the score to 0
+    score = -5;
 
-    score = 0;
+    consecutiveCorrectAnswers = 0; // Reset consecutive correct answers
     incorrectTries = 0;
-    updateScore();
+    updateScore(); // Update the displayed score
+
     fetchRandomPokemon();
   };
 
@@ -239,28 +253,27 @@ document.addEventListener("DOMContentLoaded", () => {
   generationButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const userGuess = parseInt(button.getAttribute("data-generation"), 10);
-
+  
       if (userGuess === currentGeneration) {
         result.textContent = "Correct! It's from generation " + currentGeneration;
         result.classList.remove("wrong");
         result.classList.add("correct");
-        score += 10;
+        updateScore(); // Only update the score for correct answers
       } else {
         result.textContent = "Wrong! The correct generation is " + currentGeneration;
         result.classList.remove("correct");
         result.classList.add("wrong");
-        score -= 5;
+        resetConsecutiveCorrectAnswers();
         incorrectTries++;
-
+  
         if (incorrectTries >= 5) {
           resetGame();
         }
       }
-
-      updateScore();
+  
       fetchRandomPokemon();
-    });
   });
+});
 
   fetchRandomPokemon();
 });
