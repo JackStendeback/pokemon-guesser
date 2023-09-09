@@ -257,36 +257,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2500); // * 2 Second Delay Between Guesses
   };
 
+  // ? This is the fetch that occurs during a page refresh, so this is neccessary.
   fetchRandomPokemon();
 
+  // * I need to find a way to hide the generationButtons for 2.5 seconds after click event occurs, but to still have time to show
+  // * If the user got the answer correct, to prevent multiple clicks during gif 2.5s process.
   const generationButtons = document.querySelectorAll(".generation-button");
 
-  generationButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const userGuess = parseInt(button.getAttribute("data-generation"), 10);
+generationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const userGuess = parseInt(button.getAttribute("data-generation"), 10);
 
-      if (userGuess === currentGeneration) {
-        result.textContent = "Correct! It's from generation " + currentGeneration;
-        result.classList.remove("wrong");
-        result.classList.add("correct");
-        updateScore(); // Only update the score for correct answers
-      } else {
-        result.textContent = "Wrong! The correct generation is " + currentGeneration;
-        result.classList.remove("correct");
-        result.classList.add("wrong");
-        resetConsecutiveCorrectAnswers();
-        incorrectTries++;
+    if (userGuess === currentGeneration) {
+      result.textContent = "Correct! It's from generation " + currentGeneration;
+      result.classList.remove("wrong");
+      result.classList.add("correct");
+      updateScore(); // Only update the score for correct answers
+    } else {
+      result.textContent = "Wrong! The correct generation is " + currentGeneration;
+      result.classList.remove("correct");
+      result.classList.add("wrong");
+      resetConsecutiveCorrectAnswers();
+      incorrectTries++;
 
-        if (incorrectTries >= 5) {
-          resetGame();
-        }
+      if (incorrectTries >= 5) {
+        resetGame();
       }
+    }
+    // Function to hide Gen buttons for 2.5 seconds
+    const hideGenButtons = () => {
+      generationButtons.forEach((button) => {
+        button.style.display = 'none';
+      });
 
-      fetchRandomPokemon();
-    });
+      setTimeout(() => {
+        generationButtons.forEach((button) => {
+          button.style.display = 'block';
+        });
+      }, 3000);
+    }
+
+    hideGenButtons();  // * Execute the function to hide the buttons for 2.5 seconds.
+    fetchRandomPokemon();
   });
-
-  fetchRandomPokemon();
+});
+  // ? This was calling the function twice, potentially having it reload the pokemon selection twice, instead of only once as intended.
+  // fetchRandomPokemon();
 });
 
 const themeToggle = document.getElementById("theme-toggle");
