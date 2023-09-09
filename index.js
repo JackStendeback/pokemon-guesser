@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreElement = document.getElementById("score");
   const scoreList = document.getElementById("scoreList");
   const themeToggle = document.getElementById("theme-toggle");
+  // * Basically hard coding text to start inside the button on refresh, and then it works as expected after that.
+  themeToggle.innerText = `Click Me!`;
+
   const result = document.getElementById("result");
 
   function setInitialTheme() {
@@ -307,3 +310,5 @@ generationButtons.forEach((button) => {
 
 const themeToggle = document.getElementById("theme-toggle");
 themeToggle.textContent = document.body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
+
+console.log(localStorage.getItem("theme"))
