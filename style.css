@@ -211,3 +211,6 @@ button:hover {
 .bug-button {
   background-color: orange;
 }
+.bug-button:hover {
+  background-color: rgb(233, 161, 26);
+}
