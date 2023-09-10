@@ -194,3 +194,16 @@ button:hover {
 #score:hover {
   background-color: #45A049; /* Slightly darker green on hover */
 }
+
+#google-form {
+  text-align: center;
+  margin-top: 20px;
+  max-width: 800px; /* Or whatever max width you want */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#google-form iframe {
+  width: 100%;
+  border: none;
+}
