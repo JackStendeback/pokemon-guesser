@@ -18,7 +18,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreList = document.getElementById("scoreList");
   const themeToggle = document.getElementById("theme-toggle");
   // * Basically hard coding text to start inside the button on refresh, and then it works as expected after that.
+  themeToggle.style.backgroundColor = '#8E4585';
   themeToggle.innerText = `Click Me!`;
+
+  window.addEventListener("load", function() {
+    // Assuming that generationButtons is already defined and is a NodeList or array
+    generationButtons.forEach(function(button) {
+      button.style.display = 'none';
+    });
+  
+    // Show the buttons after 3 seconds
+    setTimeout(function() {
+      generationButtons.forEach(function(button) {
+        button.style.display = 'block';
+      });
+    }, 3000);
+  });
+
+  // * Change color when hovered over
+themeToggle.addEventListener('mouseenter', function() {
+  themeToggle.style.backgroundColor = '#9F5090';  // A slightly different purple
+});
+
+// * Revert to original color when hover ends
+themeToggle.addEventListener('mouseleave', function() {
+  themeToggle.style.backgroundColor = '#8E4585';  // Original purple
+});
 
   const result = document.getElementById("result");
 
@@ -288,19 +313,20 @@ generationButtons.forEach((button) => {
       }
     }
     // Function to hide Gen buttons for 2.5 seconds
-    const hideGenButtons = () => {
-      generationButtons.forEach((button) => {
+    // * Changed this from an arrow function into a function declaration so I am able to call it higher up in the script.
+    function hideGenButtons() {
+      generationButtons.forEach(function(button) {
         button.style.display = 'none';
       });
-
-      setTimeout(() => {
-        generationButtons.forEach((button) => {
+    
+      setTimeout(function() {
+        generationButtons.forEach(function(button) {
           button.style.display = 'block';
         });
       }, 3000);
     }
 
-    hideGenButtons();  // * Execute the function to hide the buttons for 2.5 seconds.
+    hideGenButtons();  // * Execute the function to hide the buttons for 3 seconds.
     fetchRandomPokemon();
   });
 });

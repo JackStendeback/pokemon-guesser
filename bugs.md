@@ -5,4 +5,4 @@
 // Potential backend integration to get data from users?
 // Girritina says it is from generation 1.
 // Magmortar is not from generation 7
-//b
+// Get rid of 'Incorrect red bar' after next pokemon appears
