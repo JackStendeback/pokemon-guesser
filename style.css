@@ -207,3 +207,7 @@ button:hover {
   width: 100%;
   border: none;
 }
+
+.bug-button {
+  background-color: orange;
+}
