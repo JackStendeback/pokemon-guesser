@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Linking both CSS styling sheets (dark-mode is specifically for dark toggle)-->
     <link rel="stylesheet" href="style.css" id="theme-style">
     <link rel="stylesheet" href="dark-mode.css">
+    <!--What shows up as the 'browser title' for users-->
     <title class="light-dark-button">Pokemon Generation Guesser</title>
 </head>
 <body>
+    <!--Button used to toggle light/dark mode-->
     <button id="theme-toggle"></button>
+    <!--Screen title(definition of the game, could be refined more)-->
     <h1>Guess The Generation</h1>
+    <!--This is where the pokemon images are sent in, to be guessed by the user-->
     <img id="pokemonImage" src="" alt="Pokémon image">
     
     <div id="generationButtons">
@@ -50,6 +55,6 @@
       }
     </script>
 
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
 </body>
 </html>

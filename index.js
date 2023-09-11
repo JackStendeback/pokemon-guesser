@@ -1,25 +1,33 @@
-// Function to toggle between light and dark modes
-function toggleTheme() {
-  const body = document.body;
-  body.classList.toggle("dark-mode");
-
-  if (body.classList.contains("dark-mode")) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
-
-  themeToggle.textContent = body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
-}
+// * Importing my gifs array from gifs.js, to help with modularization within my file structure.
+import { gifs } from './gifs.js';
+import { setInitialTheme } from './themes.js';
+import { toggleTheme } from './themes.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const pokemonImage = document.getElementById("pokemonImage");
   const scoreElement = document.getElementById("score");
   const scoreList = document.getElementById("scoreList");
   const themeToggle = document.getElementById("theme-toggle");
-  // * Basically hard coding text to start inside the button on refresh, and then it works as expected after that.
-  themeToggle.style.backgroundColor = '#8E4585';
-  themeToggle.innerText = `Click Me!`;
+
+// ! Theme Toggle Stuff
+
+themeToggle.innerText = 'Click Me';
+// Set initial background color and text based on theme
+themeToggle.style.backgroundColor = '#8E4585';
+// Log current theme
+console.log(localStorage.getItem("theme"));
+// Change color when hovered over
+themeToggle.addEventListener('mouseenter', function() {
+  themeToggle.style.backgroundColor = '#9F5090';  // A slightly different purple
+});
+// Revert to original color when hover ends
+themeToggle.addEventListener('mouseleave', function() {
+  themeToggle.style.backgroundColor = '#8E4585';  // Original purple
+});
+// Add click event listener
+themeToggle.addEventListener("click", () => toggleTheme(themeToggle));
+
+// ! Theme Toggle Stuff
 
   window.addEventListener("load", function() {
     // Assuming that generationButtons is already defined and is a NodeList or array
@@ -35,30 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   });
 
-  // * Change color when hovered over
-themeToggle.addEventListener('mouseenter', function() {
-  themeToggle.style.backgroundColor = '#9F5090';  // A slightly different purple
-});
-
-// * Revert to original color when hover ends
-themeToggle.addEventListener('mouseleave', function() {
-  themeToggle.style.backgroundColor = '#8E4585';  // Original purple
-});
-
   const result = document.getElementById("result");
 
-  function setInitialTheme() {
-    const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (localStorage.getItem("theme") === "dark" || (prefersDarkMode && !localStorage.getItem("theme"))) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }
-
   setInitialTheme();
-
-  themeToggle.addEventListener("click", toggleTheme);
 
   let currentGeneration = null;
   let score = 0;
@@ -136,132 +123,6 @@ themeToggle.addEventListener('mouseleave', function() {
   const fetchRandomPokemon = async () => {
     const randomID = Math.floor(Math.random() * 898) + 1;
 
-    // * Choose a random GIF from the array
-    const gifs = [
-      'https://media.tenor.com/29p75Sk-P8EAAAAM/pikachu-pokemon.gif',
-      'https://media.tenor.com/-UySwvEyDMMAAAAi/bulbasaur-pokemon.gif',
-      'https://media.tenor.com/3sJ4Qpyio-QAAAAM/wooper-pokemon.gif',
-      'https://media.tenor.com/NHk1vFM59h0AAAAM/jolton-pokemon.gif',
-      'https://media.tenor.com/ezOoD-uw_0wAAAAM/pokemon-cute.gif',
-      'https://media.tenor.com/52I7tEtSoH8AAAAM/purugly-pokemon.gif',
-      'https://media.tenor.com/cQtoIIrpSxQAAAAj/pokemon-mudkip.gif',
-      'https://media.tenor.com/Pwn9ZYb7C2QAAAAj/gengar-pokemon.gif',
-      'https://media.tenor.com/DrdU6bRAfusAAAAj/bulbasaur-pokemon.gif',
-      'https://media.tenor.com/ukCijpKsjhEAAAAj/pokemon-venusaur.gif',
-      'https://media.tenor.com/2KcqhP4elWkAAAAj/drifblim-drifloon.gif',
-      'https://media.tenor.com/YvAZ_CtrtlMAAAAj/espeon.gif',
-      'https://media.tenor.com/R-IQmr-QVTYAAAAj/darkrai-pok%C3%A9mon-darkrai.gif',
-      'https://media.tenor.com/Uc1_BQNb7O8AAAAj/sylveon-pixell.gif',
-      'https://media.tenor.com/IBWoFq2aazQAAAAj/amazing-wow.gif',
-      'https://media.tenor.com/FfHjNfODLkgAAAAj/buizel-pokemon.gif',
-      'https://media.tenor.com/40q2xXN6gfMAAAAj/meowth-pokemon.gif',
-      'https://media.tenor.com/F_Pp03QwWaIAAAAj/water.gif',
-      'https://media.tenor.com/pBM7dzGyfokAAAAj/snorlax-pixel.gif',
-      'https://media.tenor.com/gjxJnAFTKNAAAAAj/hoean-staters-pokemon.gif',
-      'https://media.tenor.com/HFotit6PSgUAAAAj/timotainmental-playin-piano.gif',
-      'https://media.tenor.com/IgUGgEFr_o4AAAAj/supermegaespecifictag.gif',
-      'https://media.tenor.com/tnR5ShiNRyIAAAAj/multiple-colors-cute-pony.gif',
-      'https://media.tenor.com/gxvJFh-wA88AAAAj/cuphead.gif',
-      'https://media.tenor.com/y6ko93COrOQAAAAj/reshiram-pokemon-reshiram.gif',
-      'https://media.tenor.com/Q1GffEXQrgAAAAAj/cyndaquil-pokemon.gif',
-      'https://media.tenor.com/WkesrjxP9rAAAAAj/pokemon-pikachu.gif',
-      'https://media.tenor.com/gZXUDhpuZR4AAAAj/keckleon-being-sick.gif',
-      'https://media.tenor.com/TnD8y7cA2uIAAAAj/pokemon-cynthia.gif',
-      'https://media.tenor.com/FH4xWxbhf2kAAAAj/pokemon.gif',
-      'https://media.tenor.com/X_xh7_GIN9YAAAAj/rojo-pokemon.gif',
-      'https://media.tenor.com/4zAQPJNQKxAAAAAj/barry-pokemon.gif',
-      'https://media.tenor.com/vdV8xin-290AAAAj/haxorus-pokemon.gif',
-      'https://media.tenor.com/Xuxf8MjsCvkAAAAj/magikarp-pokemon.gif',
-      'https://media.tenor.com/WIwUWwq6JpUAAAAj/pokemon-dragonite.gif',
-      'https://media.tenor.com/WdulATnpfMQAAAAj/vapoeron-danceing.gif',
-      'https://media.tenor.com/o7WxPa0RpkUAAAAj/pikachu.gif',
-      'https://media.tenor.com/pZlKyUDs0RgAAAAj/pokemon-nintendo.gif',
-      'https://media.tenor.com/iGSsICUR-2oAAAAj/mewtwo-sprite.gif',
-      'https://media.tenor.com/ptl9U5YvK_wAAAAj/shiny-charizard-fire.gif',
-      'https://media.tenor.com/gPI9EkLBgkIAAAAj/pokemon-piplup.gif',
-      'https://media.tenor.com/VjjL8PS5Z3MAAAAj/charmander-ian-boschero.gif',
-      'https://media.tenor.com/EAAxkwW71WcAAAAj/pokemon-pokemon-black-and-white.gif',
-      'https://media.tenor.com/qycQatpHyVkAAAAj/vaporeon-pokemon.gif',
-      'https://media.tenor.com/jwHkGGFNoH8AAAAj/shiny-charmander-pokemon.gif',
-      'https://media.tenor.com/CeiYlOyw55oAAAAj/pokemon-pixel-art.gif',
-      'https://media.tenor.com/kCxKQPlvR0cAAAAj/pokemon.gif',
-      'https://media.tenor.com/TzmXI2XDJuEAAAAj/maril-pokemon.gif',
-      'https://media.tenor.com/PrAs4Q8lV54AAAAj/furret-happy.gif',
-      'https://media.tenor.com/8CRuK01WKcMAAAAj/pokemon-pikachu.gif',
-      'https://media.tenor.com/FvFAZLdNAnkAAAAj/simisage-shiny-simisage.gif',
-      'https://media.tenor.com/4K2_dLLq-pwAAAAj/charmander-chases-tail.gif',
-      'https://media.tenor.com/fmq6j6VkFwUAAAAj/spheal-spheal-pokemon.gif',
-      'https://media.tenor.com/ksrXvJ5a9XEAAAAj/yveltal-pokemon-xy.gif',
-      'https://media.tenor.com/QsR5hCUZXXgAAAAj/mimikyu-aesthetic.gif',
-      'https://media.tenor.com/1r1AOFqPg5oAAAAj/flying-pikachu-transparent-balloon-pikachu.gif',
-      'https://media.tenor.com/lr6evdW49pcAAAAj/totodile-pokemon.gif',
-      'https://media.tenor.com/DBuccIlXTCEAAAAj/pokemon-crasher-wake.gif',
-      'https://media.tenor.com/2kfnMx1LFoQAAAAj/pokemon-umbreon.gif',
-      'https://media.tenor.com/dnWAp31CgmsAAAAj/lugia-pokemon.gif',
-      'https://media.tenor.com/or7dYahB5t8AAAAj/pikachu-pokemon.gif',
-      'https://media.tenor.com/tEJ08WIj9lcAAAAj/charizard-pokemon-charizard.gif',
-      'https://media.tenor.com/3Qj2zvHVl40AAAAj/snorlax-sleeping.gif',
-      'https://media.tenor.com/0GRl16naN8YAAAAj/pokemon-nintendo.gif',
-      'https://media.tenor.com/hzVy-nB15DoAAAAj/music-pokemon.gif',
-      'https://media.tenor.com/GfzFmhWoWdMAAAAj/pikachu-run.gif',
-      'https://media.tenor.com/1mw3bna7DccAAAAj/armaldo-pok%C3%A9mon-armaldo.gif',
-      'https://media.tenor.com/gqrozSetSvoAAAAj/sprite-pokemon.gif',
-      'https://media.tenor.com/Kal1GGUVeD8AAAAj/shiny-charmeleon-pokemon.gif',
-      'https://media.tenor.com/Ebufw1twfFIAAAAj/bronzong-bronzor.gif',
-      'https://media.tenor.com/SbCYyNZXhhcAAAAj/raichu-happy.gif',
-      'https://media.tenor.com/lv9hpaXqXu4AAAAj/sprite-pokemon.gif',
-      'https://media.tenor.com/fQ4Up-08a2MAAAAj/pokemon-leafeon.gif',
-      'https://media.tenor.com/XlMe6e3sSY0AAAAj/pokemon-pokemon-gen5.gif',
-      'https://media.tenor.com/Da4LECXrrgkAAAAj/pokemon-arcanine.gif',
-      'https://media.tenor.com/AFAWzUb_qP4AAAAj/pokemon-flareon.gif',
-      'https://media.tenor.com/rW10vmnkejoAAAAj/pokemon-buneary.gif',
-      'https://media.tenor.com/upy0CZ6C0I0AAAAj/eevee-pokemon.gif',
-      'https://media.tenor.com/jQVquc_t1-kAAAAj/dugtrio-pokemon.gif',
-      'https://media.tenor.com/EWuYRdEBqLkAAAAj/prosecutor-prosecut0r.gif',
-      'https://media.tenor.com/fPy5h_wW5IQAAAAj/torchic-pokemon.gif',
-      'https://media.tenor.com/i9B0jt7sIToAAAAj/pokemon.gif',
-      'https://media.tenor.com/j_7hBOVj_S8AAAAj/shaymin-pokemon.gif',
-      'https://media.tenor.com/2r3Ub1sj-M8AAAAj/picachu.gif',
-      'https://media.tenor.com/c1bTbi47HuEAAAAj/pikachu-kanahei.gif',
-      'https://media.tenor.com/aauAESZ3cTIAAAAj/pokemon.gif',
-      'https://media.tenor.com/-6naFQxWxG0AAAAj/pokemon-gengar.gif',
-      'https://media.tenor.com/byVUQrJnFGQAAAAj/pokemon-jolteon.gif',
-      'https://media.tenor.com/tvr8PaFAvr8AAAAj/clay-pokemon.gif',
-      'https://media.tenor.com/obN3ZIDBAD8AAAAj/pok%C3%A9mon-lugulabre-shiny.gif',
-      'https://media.tenor.com/4eBTewwQyt8AAAAj/quagsire-quag.gif',
-      'https://media.tenor.com/lNvvMluzI0QAAAAj/charizard-pokemon.gif',
-      'https://media.tenor.com/Q3Iks96Pn64AAAAj/iris-pokemon.gif',
-      'https://media.tenor.com/2jgkHvq13g0AAAAj/misdreavus-gold.gif',
-      'https://media.tenor.com/Itc32ImvUW0AAAAj/craig.gif',
-      'https://media.tenor.com/rTUcYxiUem8AAAAj/suicune-pokemon.gif',
-      'https://media.tenor.com/JJKM5ewBqSYAAAAj/blaine-pokemon-radical-red.gif',
-      'https://media.tenor.com/lzG4tNAbJhYAAAAj/pokemon-rotom.gif',
-      'https://media.tenor.com/FgjFLYdUJ30AAAAj/froakie-pokemon.gif',
-      'https://media.tenor.com/mUMECLNPNSEAAAAj/octillery-octopus.gif',
-      'https://media.tenor.com/R29umFwZh5gAAAAj/torde-palpitoad.gif',
-      'https://media.tenor.com/WP7Y2IWIChQAAAAj/pokemon-pokememes-frikoid-cute-funny-lileep-yes-yesyesyes-yesyes.gif',
-      'https://media.tenor.com/rQlLsMnFj3IAAAAj/primeape-pokemon.gif',
-      'https://media.tenor.com/mMl5Q9sAYLoAAAAj/scizor.gif',
-      'https://media.tenor.com/GIyYKhIPVRQAAAAj/nidoking-nidoqueen.gif',
-      'https://media.tenor.com/a7Wi8j3rYmEAAAAj/pokemon-legendary.gif',
-      'https://media.tenor.com/pW8D2Mxaod0AAAAj/ghetsis-pokemon.gif',
-      'https://media.tenor.com/pJ4Ufj_JlngAAAAj/dance-moves.gif',
-      'https://media.tenor.com/zOasP5PZ80kAAAAj/plusle-minun.gif',
-      'https://media.tenor.com/CzwinPzN9nQAAAAj/scorbunny-cute.gif',
-      'https://media.tenor.com/2yzvgWyZK7kAAAAj/animation-pixel-art.gif',
-      'https://media.tenor.com/LbZrWjrahKsAAAAj/cinderace.gif',
-      'https://media.tenor.com/B5oRa2uSYfEAAAAj/notlikeduck-duck.gif',
-      'https://media.tenor.com/ZneZ0AkjHSUAAAAj/bw2-rosa.gif',
-      'https://media.tenor.com/u0LicYPDHX0AAAAj/furret.gif',
-      'https://media.tenor.com/fmvhNwUbfOsAAAAj/spheal-pokemon.gif',
-      'https://media.tenor.com/b7mLfFBxtD4AAAAj/piplup.gif',
-      'https://media.tenor.com/omg3YGVdUm4AAAAj/empoleon-impoleon.gif',
-      'https://media.tenor.com/JtywcWsWnGMAAAAj/pok%C3%A9mon.gif',
-      'https://media.tenor.com/Vf_Zf6tx_CAAAAAj/durant-pokemondurant.gif',
-      'https://media.tenor.com/rHzyCjzAVKcAAAAj/porygon-shiny-porygon.gif',
-      'https://media.tenor.com/_vZ6G0GfrnQAAAAj/nidorino-pokemon.gif'
-
-    ];
     const randomGifIndex = Math.floor(Math.random() * gifs.length);
     pokemonImage.src = gifs[randomGifIndex];
 
@@ -330,11 +191,4 @@ generationButtons.forEach((button) => {
     fetchRandomPokemon();
   });
 });
-  // ? This was calling the function twice, potentially having it reload the pokemon selection twice, instead of only once as intended.
-  // fetchRandomPokemon();
 });
-
-const themeToggle = document.getElementById("theme-toggle");
-themeToggle.textContent = document.body.classList.contains("dark-mode") ? "Toggle Light Mode" : "Toggle Dark Mode";
-
-console.log(localStorage.getItem("theme"))
